@@ -1,0 +1,24 @@
+{
+  "name": "antoniosam/misite",
+  "description": "PHP library .",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Antonio Samano",
+      "email": "antoniost.developer@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.5.9"
+  },
+  "require-dev":{
+    "antoniosam/mwbexporterextra": "^1.1"
+  },
+  "autoload": {
+    "psr-4" : {
+      "Ast\\WebfastBundle\\" : ""
+    }
+  }
+}

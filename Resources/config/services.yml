@@ -1,0 +1,4 @@
+services:
+    codigos:
+            class: Ast\WebfastBundle\Services\FastQuery
+            arguments: ["@doctrine.orm.entity_manager"]
