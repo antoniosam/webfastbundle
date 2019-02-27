@@ -1,6 +1,6 @@
 <?php
 
-namespace Ast\MySiteBundle;
+namespace Ast\WebfastBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
