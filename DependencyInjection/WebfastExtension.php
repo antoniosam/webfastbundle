@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class MySiteExtension extends Extension
+class WebfastExtension extends Extension
 {
     /**
      * {@inheritdoc}
