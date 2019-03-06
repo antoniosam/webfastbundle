@@ -25,9 +25,11 @@ class CreateEntitysCommand extends ContainerAwareCommand
             ->setName(static::$defaultName)
             ->setDescription('Crear entidades Base.')
             ->addOption('folder-entitys', null, InputOption::VALUE_REQUIRED, 'Folder Entitys', 'default')
-            ->addOption('entitys-namespace', null, InputOption::VALUE_REQUIRED, 'Namespace Entidades (1,0)', 'default')
-            ->addOption('prefix-tables', null, InputOption::VALUE_REQUIRED, 'Namespace Entidades (1,0)', 'default')
-            ->addOption('folder-fastquery', null, InputOption::VALUE_REQUIRED, 'Folder FastQuery', 'default');
+            ->addOption('entitys-namespace', null, InputOption::VALUE_REQUIRED, 'Namespace Entidades ', 'default')
+            ->addOption('prefix-tables', null, InputOption::VALUE_REQUIRED, 'Sufijo a las tablas en mysql', 'default')
+            ->addOption('folder-fastquery', null, InputOption::VALUE_REQUIRED, 'Folder destino FastQuery', 'default')
+            ->addOption('fastquery-namespace', null, InputOption::VALUE_REQUIRED, 'Namespace Class FastQuery ', 'default');
+
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -38,17 +40,18 @@ class CreateEntitysCommand extends ContainerAwareCommand
         $namespace = '';
         if (\Symfony\Component\HttpKernel\Kernel::MAJOR_VERSION == 4) {
             $folder_entitys = ($input->getOption('folder-entitys') == 'default') ? 'Entity' : $input->getOption('folder-entitys');
-            $namespace = ($input->getOption('entitys_namespace') == 'default') ? 'App\Entity' : $input->getOption('entitys_namespace');
+            $namespace = ($input->getOption('entitys-namespace') == 'default') ? 'App\Entity' : $input->getOption('entitys-namespace');
             $folder_fast = ($input->getOption('folder-fastquery') == 'default') ? 'Utils' : $input->getOption('folder-fastquery');
             $folder = $this->getContainer()->getParameter("kernel.project_dir") . '/src/' . $folder_entitys;
             $folderfast = $this->getContainer()->getParameter("kernel.project_dir") . '/src/' . $folder_fast;
-
+            $namespacefast = ($input->getOption('fastquery-namespace') == 'default') ? 'App\Utils' : $input->getOption('fastquery-namespace');
         } else {
             $folder_entitys = ($input->getOption('folder_entitys') == 'default') ? 'AppBundle/Entity' : $input->getOption('folder_entitys');
-            $namespace = ($input->getOption('entitys_namespace') == 'default') ? 'AppBundle\Entity' : $input->getOption('entitys_namespace');
+            $namespace = ($input->getOption('entitys-namespace') == 'default') ? 'AppBundle\Entity' : $input->getOption('entitys-namespace');
             $folder_fast = ($input->getOption('folder-fastquery') == 'default') ? 'Utils' : $input->getOption('folder-fastquery');
             $folder = $this->getContainer()->getParameter("kernel.project_dir") . '/src/' . $folder_entitys;
             $folderfast = $this->getContainer()->getParameter("kernel.project_dir") . '/src/' . $folder_fast;
+            $namespacefast = ($input->getOption('fastquery-namespace') == 'default') ? 'AppBundle\Utils' : $input->getOption('fastquery-namespace');
         }
         $prefixtables = ($input->getOption('prefix-tables') == 'default') ? 'Site_' : $input->getOption('prefix-tables');
 
@@ -65,8 +68,8 @@ class CreateEntitysCommand extends ContainerAwareCommand
         $output->writeln('Prefix Tables: ' . $prefixtables);
         $output->writeln('');
 
-        $entidades = $this->exportar($prefixtables, $folder, $namespace, $folderfast);
-        $output->writeln('Resultado:' . $entidades . ' entidades');
+        $entidades = $this->exportar($prefixtables, $folder, $namespace, $folderfast,$namespacefast);
+        $output->writeln('Resultado: ' . $entidades . ' entidades');
 
 
         // outputs a message without adding a "\n" at the end of the line
@@ -87,7 +90,7 @@ class CreateEntitysCommand extends ContainerAwareCommand
         return ($hours > 0 ? $hours . 'h ' : '') . ($mins > 0 ? $mins . 'm ' : '') . $secs . 's';
     }
 
-    private function exportar($prefixtables, $folder, $namespace, $folderfast)
+    private function exportar($prefixtables, $folder, $namespace, $folderfast,$namespacefast)
     {
         if (\Symfony\Component\HttpKernel\Kernel::MAJOR_VERSION == 4) {
             $dir = __DIR__ . '/../extras/sf4/';
@@ -96,6 +99,7 @@ class CreateEntitysCommand extends ContainerAwareCommand
             $dir = __DIR__ . '/../extras/sf3/';
             $findnamespacetodelete = 'AppBundle\Entity';
         }
+        $dirfast = __DIR__ . '/../extras/utils/';
         $files = [
             'Administrador',
             'Configuracion',
@@ -122,13 +126,15 @@ class CreateEntitysCommand extends ContainerAwareCommand
             $filename = $folder . '/' . $file . '.php';
             file_put_contents($filename, $txt);
         }
-        if (!file_exists($folder)) {
-            mkdir($folder, 0777, true);
+        if (!file_exists($folderfast)) {
+            mkdir($folderfast, 0777, true);
         }
 
-        $txt = file_get_contents($dir . 'FastQuery');
+        $txt = file_get_contents($dirfast . 'FastQuery');
         $txt = str_replace('App\App', $namespace, $txt);
-        $filename = $folder . '/FastQuery.php';
+        $txt = str_replace('Ast\WebfastBundle\Services', $namespacefast, $txt);
+
+        $filename = $folderfast . '/FastQuery.php';
         file_put_contents($filename, $txt);
 
         return count($files);
