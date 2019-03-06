@@ -12,8 +12,7 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=5.5.9",
-    "antoniosam/utilstring": "^1.2",
-    "antoniosam/custom-password": "^1.0"
+    "antoniosam/utilstring": "^1.2"
   },
   "require-dev":{
     "antoniosam/mwbexporterextra": "^1.1"

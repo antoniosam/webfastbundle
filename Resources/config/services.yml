@@ -1,4 +1,0 @@
-services:
-    app.custom_encoder:
-        class: Ast\CustomPassword\CustomEnconder
-        arguments: []
