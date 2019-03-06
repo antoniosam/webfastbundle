@@ -13,6 +13,7 @@ class FastQuery
     function __construct(EntityManager $em, $key, $tipo, $ciclos = null,  $charsetlist = null,$longitud = null)
     {
         $this->em = $em;
+         new Portafolio();
     }
 
 }

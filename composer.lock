@@ -4,8 +4,81 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8199161755d7851f940deae1174e108b",
-    "packages": [],
+    "content-hash": "30df1f8d48edebaea055f4cdcdd233e0",
+    "packages": [
+        {
+            "name": "antoniosam/custom-password",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/antoniosam/custom-password.git",
+                "reference": "dd52caf7d19c7f5026002053dfd168275ebaf4f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/antoniosam/custom-password/zipball/dd52caf7d19c7f5026002053dfd168275ebaf4f9",
+                "reference": "dd52caf7d19c7f5026002053dfd168275ebaf4f9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ast\\CustomPassword\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Samano",
+                    "email": "antoniost.developer@gmail.com"
+                }
+            ],
+            "description": "Libreria Php para generar contraseñas, agregando obligatoriamente el uso de salt.",
+            "time": "2018-11-27T23:39:51+00:00"
+        },
+        {
+            "name": "antoniosam/utilstring",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/antoniosam/utilstring.git",
+                "reference": "eeb1f0d6b37adf1cc84bc0b70a7a3cfe7392d83c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/antoniosam/utilstring/zipball/eeb1f0d6b37adf1cc84bc0b70a7a3cfe7392d83c",
+                "reference": "eeb1f0d6b37adf1cc84bc0b70a7a3cfe7392d83c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ast\\UtilString\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Samano",
+                    "email": "antoniost.developer@gmail.com"
+                }
+            ],
+            "description": "PHP library Functions String  .",
+            "time": "2018-11-27T23:41:51+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "antoniosam/mwbexporterextra",

@@ -1,0 +1,30 @@
+<?php
+namespace Ast\WebfastBundle\Services;
+
+/**
+ * Created by marcosamano
+ * Date: 6/03/19
+ */
+ use App\App\Configuracion;
+ use App\App\Galeria;
+ use App\App\GaleriaImagen;
+ use App\App\Imagen;
+ use App\App\Lista;
+ use App\App\ListaContenido;
+ use App\App\Pagina;
+ use App\App\Parrafo;
+ use App\App\Portafolio;
+ use App\App\Producto;
+ use App\App\SocialMedia;
+ use App\App\Tab;
+
+class FastQuery
+{
+    private $em;
+
+    function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
+}

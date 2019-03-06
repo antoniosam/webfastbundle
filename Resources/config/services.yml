@@ -1,4 +1,4 @@
 services:
-    codigos:
-            class: Ast\WebfastBundle\Services\FastQuery
-            arguments: ["@doctrine.orm.entity_manager"]
+    app.custom_encoder:
+        class: Ast\CustomPassword\CustomEnconder
+        arguments: []
