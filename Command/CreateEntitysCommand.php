@@ -46,7 +46,7 @@ class CreateEntitysCommand extends ContainerAwareCommand
             $folderfast = $this->getContainer()->getParameter("kernel.project_dir") . '/src/' . $folder_fast;
             $namespacefast = ($input->getOption('fastquery-namespace') == 'default') ? 'App\Utils' : $input->getOption('fastquery-namespace');
         } else {
-            $folder_entitys = ($input->getOption('folder_entitys') == 'default') ? 'AppBundle/Entity' : $input->getOption('folder_entitys');
+            $folder_entitys = ($input->getOption('folder-entitys') == 'default') ? 'AppBundle/Entity' : $input->getOption('folder-entitys');
             $namespace = ($input->getOption('entitys-namespace') == 'default') ? 'AppBundle\Entity' : $input->getOption('entitys-namespace');
             $folder_fast = ($input->getOption('folder-fastquery') == 'default') ? 'Utils' : $input->getOption('folder-fastquery');
             $folder = $this->getContainer()->getParameter("kernel.project_dir") . '/src/' . $folder_entitys;

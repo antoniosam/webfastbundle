@@ -39,3 +39,10 @@ Symfony 3
 
 src/AppBundle/Entitys/
 src/AppBundle/Utils/
+
+ej. Symfony 3 Comandos
+Despues de crear el Bundle AdminBundle
+```
+php bin/console webfast:create:entitys --folder-entitys=AdminBundle/Entity --entitys-namespace='AdminBundle\Entity'
+
+```
