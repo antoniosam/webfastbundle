@@ -49,7 +49,7 @@ class Lista
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    protected $actalizado;
+    protected $actualizado;
 
     /**
      * @ORM\OneToMany(targetEntity="ListaContenido", mappedBy="lista")
@@ -178,26 +178,26 @@ class Lista
     }
 
     /**
-     * Set the value of actalizado.
+     * Set the value of actualizado.
      *
-     * @param \DateTime $actalizado
+     * @param \DateTime $actualizado
      * @return \App\Entity\Lista
      */
-    public function setActalizado($actalizado)
+    public function setActualizado($actualizado)
     {
-        $this->actalizado = $actalizado;
+        $this->actualizado = $actualizado;
 
         return $this;
     }
 
-    /**
-     * Get the value of actalizado.
+     /**
+     * Get the value of actualizado.
      *
      * @return \DateTime
      */
-    public function getActalizado()
+    public function getActualizado()
     {
-        return $this->actalizado;
+        return $this->actualizado;
     }
 
     /**

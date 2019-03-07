@@ -10,8 +10,10 @@
 
 namespace App\Entity;
 
-use Ast\UtilString\UniqueId;
+
 use Doctrine\ORM\Mapping as ORM;
+use Ast\UtilString\Slugg;
+use Ast\UtilString\UniqueId;
 
 
 /**
@@ -146,6 +148,7 @@ class Pagina
     public function onPrePersist(){
         $this->creado = new \DateTime("now");
         $this->referencia = UniqueId::generate();
+        $this->slug = Slugg::slugify($this->titulo);
     }
 
     /**
@@ -153,7 +156,8 @@ class Pagina
     * @ORM\PreUpdate
     */
     public function onPreUpdate(){
-        $this->actualizado = new \DateTime("now"); 
+        $this->actualizado = new \DateTime("now");
+        $this->slug = Slugg::slugify($this->titulo);
     }
 
     /**
