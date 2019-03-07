@@ -50,7 +50,7 @@ class CreateEntitysCommand extends ContainerAwareCommand
             $namespace = ($input->getOption('entitys-namespace') == 'default') ? 'AppBundle\Entity' : $input->getOption('entitys-namespace');
             $folder_fast = ($input->getOption('folder-fastquery') == 'default') ? 'Utils' : $input->getOption('folder-fastquery');
             $folder = $this->getContainer()->getParameter("kernel.project_dir") . '/src/' . $folder_entitys;
-            $folderfast = $this->getContainer()->getParameter("kernel.project_dir") . '/src/' . $folder_fast;
+            $folderfast = $this->getContainer()->getParameter("kernel.project_dir") . '/src/AppBundle/' . $folder_fast;
             $namespacefast = ($input->getOption('fastquery-namespace') == 'default') ? 'AppBundle\Utils' : $input->getOption('fastquery-namespace');
         }
         $prefixtables = ($input->getOption('prefix-tables') == 'default') ? 'Site_' : $input->getOption('prefix-tables');
