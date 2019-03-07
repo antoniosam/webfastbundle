@@ -392,7 +392,7 @@ class Administrador implements UserInterface, \Serializable ,AdvancedUserInterfa
     public function serialize()
     {
         return serialize(array(
-                $this->idusuario,
+                $this->id,
                 $this->correo,
                 $this->pass,
                 // see section on salt below
@@ -405,7 +405,7 @@ class Administrador implements UserInterface, \Serializable ,AdvancedUserInterfa
     public function unserialize($serialized)
     {
         list (
-            $this->idusuario,
+            $this->id,
             $this->correo,
             $this->pass,
             // see section on salt below
