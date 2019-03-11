@@ -21,10 +21,241 @@ namespace Ast\WebfastBundle\Services;
 class FastQuery
 {
     private $em;
+    private $paginas;
+    private $paginareferencia = [];
+    private $listas;
+    private $listareferencia = [];
+    private $portafolioreferencia = [];
+    private $galerias;
+    private $galeriareferencia = [];
+    private $imagenes;
+    private $imagenreferencia = [];
+    private $parrafos;
+    private $parraforeferencia = [];
+    private $social;
+    private $socialreferencia = [];
+    private $tab;
+    private $tabreferencia = [];
 
     function __construct(EntityManager $em)
     {
         $this->em = $em;
+    }
+
+    /**
+     * @param EntityManager $em
+     * @return $this
+     */
+    static function init(EntityManager $em)
+    {
+        return new self($em);
+    }
+
+    /**
+     * @param $referencias
+     * @return $this
+     */
+    public function findPagina($referencias)
+    {
+        if (is_array($referencias)) {
+            foreach ($referencias as $ref) {
+                $this->paginareferencia[] = $ref;
+            }
+        } else {
+            $this->paginareferencia[] = $referencias;
+        }
+        return $this;
+    }
+
+    /**
+     * @param $referencias
+     * @return $this
+     */
+    public function findLista($referencias)
+    {
+        if (is_array($referencias)) {
+            foreach ($referencias as $ref) {
+                $this->listareferencia[] = $ref;
+            }
+        } else {
+            $this->listareferencia[] = $referencias;
+        }
+        return $this;
+    }
+
+    /**
+     * @param $referencias
+     * @return $this
+     */
+    public function findGaleria($referencias)
+    {
+        if (is_array($referencias)) {
+            foreach ($referencias as $ref) {
+                $this->galeriareferencia[] = $ref;
+            }
+        } else {
+            $this->galeriareferencia[] = $referencias;
+        }
+        return $this;
+    }
+
+    /**
+     * @param $referencias
+     * @return $this
+     */
+    public function findImagen($referencias)
+    {
+        if (is_array($referencias)) {
+            foreach ($referencias as $ref) {
+                $this->imagenreferencia[] = $ref;
+            }
+        } else {
+            $this->imagenreferencia[] = $referencias;
+        }
+        return $this;
+    }
+
+    /**
+     * @param $referencias
+     * @return $this
+     */
+    public function findParrafo($referencias)
+    {
+        if (is_array($referencias)) {
+            foreach ($referencias as $ref) {
+                $this->parraforeferencia[] = $ref;
+            }
+        } else {
+            $this->parraforeferencia[] = $referencias;
+        }
+        return $this;
+    }
+
+    /**
+     * @param $referencias
+     * @return $this
+     */
+    public function findPortafolio()
+    {
+
+        $this->portafolioreferencia[] = 'si';
+
+        return $this;
+    }
+
+    /**
+     * @param $referencias
+     * @return $this
+     */
+    public function findSocialMedia($referencias)
+    {
+        if (is_array($referencias)) {
+            foreach ($referencias as $ref) {
+                $this->socialreferencia[] = $ref;
+            }
+        } else {
+            $this->socialreferencia[] = $referencias;
+        }
+        return $this;
+    }
+
+    /**
+     * @param $em EntityManagerInterface
+     * @param $referencias string|array
+     * @return array
+     */
+    static function correosSocialMedia($em,$referencias)
+    {
+        $correos = [];
+        $querys = $em->getRepository(SocialMedia::class)->findBy(['referencia'=>$referencias]);
+        foreach ($querys as $q){
+            $correos[] = $q->getValor();
+        }
+        return $correos;
+    }
+
+    /**
+     * @param $referencias
+     * @return $this
+     */
+    public function findTab($referencias)
+    {
+        if (is_array($referencias)) {
+            foreach ($referencias as $ref) {
+                $this->tabreferencia[] = $ref;
+            }
+        } else {
+            $this->tabreferencia[] = $referencias;
+        }
+        return $this;
+    }
+
+    public function execute(){
+        $paginas = [];
+        if(count($this->paginareferencia)>0) {
+            $querys = $this->em->getRepository(Pagina::class)->findBy(['referencia' => $this->paginareferencia]);
+            foreach ($querys as $q) {
+                $paginas[$q->getReferencia()] = $q;
+            }
+        }
+
+        $listas = [];
+        if(count($this->listareferencia)>0){
+            $querys = $this->em->getRepository(Lista::class)->findBy(['referencia'=>$this->listareferencia]);
+            foreach ($querys as $q){
+                $listas[$q->getReferencia()] = $q;
+            }
+        }
+
+        $galerias = [];
+        if(count($this->galeriareferencia)>0){
+            $querys = $this->em->getRepository(Galeria::class)->findBy(['referencia'=>$this->galeriareferencia]);
+            foreach ($querys as $q){
+                $galerias[$q->getReferencia()] = $q;
+            }
+        }
+
+        $imagenes = [];
+        if(count($this->imagenreferencia)>0){
+            $querys = $this->em->getRepository(Imagen::class)->findBy(['referencia'=>$this->imagenreferencia]);
+            foreach ($querys as $q){
+                $imagenes[$q->getReferencia()] = $q;
+            }
+        }
+
+        $portafolio = [];
+        if(count($this->portafolioreferencia)>0){
+            $portafolio = $this->em->getRepository(Portafolio::class)->findBy(['activo'=>true]);
+
+        }
+
+        $parrafos = [];
+        if(count($this->parraforeferencia)>0){
+            $querys = $this->em->getRepository(Parrafo::class)->findBy(['referencia'=>$this->parraforeferencia]);
+            foreach ($querys as $q){
+                $parrafos[$q->getReferencia()] = $q;
+            }
+
+        }
+
+        $social = [];
+        if(count($this->socialreferencia)>0){
+            $querys = $this->em->getRepository(SocialMedia::class)->findBy(['referencia'=>$this->socialreferencia]);
+            foreach ($querys as $q){
+                $social[$q->getReferencia()] = $q;
+            }
+
+        }
+        $tab = [];
+        if(count($this->socialreferencia)>0){
+            $querys = $this->em->getRepository(Tab::class)->findBy(['referencia'=>$this->tabreferencia]);
+            foreach ($querys as $q){
+                $tab[$q->getReferencia()] = $q;
+            }
+
+        }
+
+        return ['pagina'=>$paginas,'lista'=>$listas,'portafolio'=>$portafolio,'galeria'=>$galerias,'parrafo'=>$parrafos,'imagen'=>$imagenes,'socialmedia'=>$social,'tab'=>$tab];
     }
 
 }

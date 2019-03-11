@@ -41,6 +41,11 @@ class Galeria
     protected $nombre;
 
     /**
+     * @ORM\Column(type="string", length=300, nullable=true)
+     */
+    protected $descripcion;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $creado;
@@ -151,6 +156,28 @@ class Galeria
     {
         return $this->nombre;
     }
+
+    /**
+     * @param string $descripcion
+     *
+     * @return \AppBundle\Entity\Galeria
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+        return $this;
+    }
+
+    /**
+     * Get the value of descripcion.
+     *
+     * @return string
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
 
     /**
      * Set the value of creado.
