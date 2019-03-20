@@ -3,7 +3,7 @@ namespace Ast\WebfastBundle\Services;
 
 /**
  * Created by marcosamano
- * Date: 6/03/19
+ * Date: 19/03/19
  */
  use App\App\Configuracion;
  use App\App\Galeria;
@@ -12,22 +12,37 @@ namespace Ast\WebfastBundle\Services;
  use App\App\Video;
  use App\App\Lista;
  use App\App\ListaContenido;
- use App\App\Pagina;
  use App\App\Parrafo;
  use App\App\Portafolio;
+ use App\App\Equipo;
  use App\App\Producto;
  use App\App\Layout;
+ use App\App\Correo;
  use App\App\Tab;
 
-/**
- * @deprecated
- */
-class FastQuery
+class WebFast
 {
+    static $TIPOLAYOUT = [
+        1 => 'Texto',
+        2 => 'Imagen',
+        3 => 'Icono Social',
+        4 => 'Telefonos'
+    ];
+
+    static $TIPOVIDEO = [
+        1 => 'Video Mp4',
+        2 => 'Video Youtube'
+    ];
+
+    static $TIPOCORREO = [
+        1 => 'Correo Contacto'
+    ];
+
     private $em;
     private $listas;
     private $listareferencia = [];
     private $portafolioreferencia = [];
+    private $equiporeferencia = [];
     private $galerias;
     private $galeriareferencia = [];
     private $imagenes;
@@ -151,6 +166,18 @@ class FastQuery
      * @param $referencias
      * @return $this
      */
+    public function findEquipo()
+    {
+
+        $this->equiporeferencia[] = 'si';
+
+        return $this;
+    }
+
+    /**
+     * @param $referencias
+     * @return $this
+     */
     public function findTab($referencias)
     {
         if (is_array($referencias)) {
@@ -200,7 +227,10 @@ class FastQuery
         $portafolio = [];
         if(count($this->portafolioreferencia)>0){
             $portafolio = $this->em->getRepository(Portafolio::class)->findBy(['activo'=>true]);
+        }
 
+        if(count($this->equiporeferencia)>0){
+            $portafolio = $this->em->getRepository(Equipo::class)->findBy(['activo'=>true]);
         }
 
         $parrafos = [];
@@ -225,10 +255,10 @@ class FastQuery
     }
 
 
-    public static function getCorreos($tipo = 1){
+    public static function getCorreos(EntityManager $em, $tipo = 1){
         $listas = [];
         if($tipo >= 1){
-            $querys = $this->em->getRepository(Correo::class)->findBy(['tipo'=>$tipo]);
+            $querys = $em->getRepository(Correo::class)->findBy(['tipo'=>$tipo]);
             foreach ($querys as $q){
                 $listas[$q->getReferencia()] = $q;
             }
@@ -236,13 +266,15 @@ class FastQuery
         return $listas;
     }
 
-    public static function getInfoLayout(){
+    public static function getInfoLayout(EntityManager $em){
         $listas = [];
-        $querys = $this->em->getRepository(Layout::class)->findAll();
+        $querys = $em->getRepository(Layout::class)->findAll();
         foreach ($querys as $q){
             $listas[$q->getReferencia()] = $q;
         }
         return $listas;
     }
+
+}
 
 }

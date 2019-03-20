@@ -12,5 +12,7 @@ use Ast\MwbExporterExtra\Exporter;
 
 require(__DIR__.'/../vendor/autoload.php');
 
+date_default_timezone_set('America/Mexico_City');
+
 Exporter::symfony4(__DIR__.'/site.mwb',__DIR__.'/sf4/');
 Exporter::symfony3(__DIR__.'/site.mwb',__DIR__.'/sf3/');

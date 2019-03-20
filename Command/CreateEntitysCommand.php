@@ -137,6 +137,13 @@ class CreateEntitysCommand extends ContainerAwareCommand
         $filename = $folderfast . '/FastQuery.php';
         file_put_contents($filename, $txt);
 
+        $txt = file_get_contents($dirfast . 'WebFast');
+        $txt = str_replace('App\App', $namespace, $txt);
+        $txt = str_replace('Ast\WebfastBundle\Services', $namespacefast, $txt);
+
+        $filename = $folderfast . '/WebFast.php';
+        file_put_contents($filename, $txt);
+
         return count($files);
 
     }
